@@ -1,0 +1,99 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 450,
+    "title": "Number of crash accidents in Victoria from 2015-2019",
+    "selection": {
+        "grid": {
+            "type": "interval",
+            "bind": "scales"
+        }
+    },
+    "params": [
+        {
+            "name": "zoom_level",
+            "value": 40000,
+            "bind": {
+                "input": "range",
+                "min": 15000,
+                "max": 60000,
+                "step": 100,
+                "name": "Zoom: "
+            }
+        },
+        {
+            "name": "center_to",
+            "value": [
+                145,
+                -37.8
+            ]
+        }
+    ],
+    "projection": {
+        "type": "equirectangular",
+        "center": {
+            "expr": "center_to"
+        },
+        "scale": {
+            "expr": "zoom_level"
+        }
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/JasonNath/FIT3179/main/Homework_9/js/vic_localities2.json",
+                "format": {
+                    "type": "topojson",
+                    "feature": "vic_localities2"
+                }
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": "lightgray",
+                "stroke": "white"
+            }
+        },
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/JasonNath/FIT3179/main/Homework_9/data/Crash_Council_Victoria.csv"
+            },
+            "mark": {
+                "type": "circle",
+                "tooltip": {
+                    "content": "data"
+                }
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "LONGITUDE",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "LATITUDE",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "field": "0",
+                    "type": "quantitative"
+                },
+                "size": {
+                    "field": "0",
+                    "type": "quantitative",
+                    "title": "Crash"
+                },
+                "tooltip": [
+                    {
+                        "field": "LGA_NAME",
+                        "type": "nominal",
+                        "title": "LGA"
+                    },
+                    {
+                        "field": "0",
+                        "type": "quantitative",
+                        "title": "Number of crashs"
+                    }
+                ]
+            }
+        }
+    ]
+}
