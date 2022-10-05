@@ -1,6 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Number of crash accidents in Victoria from 2014-2018",
+    "title": "Number of crash accidents in Victoria from 2015-2018",
+    "width": 400,
+    "height": 150,
     "data": {
         "url": "https://raw.githubusercontent.com/JasonNath/FIT3179-Homework-Week-9/main/data/Crash_Stats_Vic.csv"
     },
