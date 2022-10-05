@@ -1,0 +1,82 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Number of crash accidents in Victoria from 2014-2018",
+    "data": {
+        "url": "https://raw.githubusercontent.com/JasonNath/FIT3179-Homework-Week-9/main/data/Crash_Stats_Vic.csv"
+    },
+    "transform": [
+        {
+            "filter": "datum.YEAR == Year_selection"
+        }
+    ],
+    "params": [
+        {
+            "name": "Year_selection",
+            "value": 2016,
+            "bind": {
+                "input": "range",
+                "min": 2015,
+                "max": 2018,
+                "step": 1,
+                "name": "Year:  "
+            }
+        }
+    ],
+    "mark": "bar",
+    "encoding": {
+        "y": {
+            "field": "SEVERITY",
+            "type": "ordinal",
+            "sort": "-x"
+        },
+        "x": {
+            "aggregate": "count",
+            "field": "SEVERITY",
+            "scale": {
+                "domain": [
+                    0,
+                    10000
+                ]
+            }
+        },
+        "tooltip": [
+            {
+                "field": "SEVERITY",
+                "type": "ordinal",
+                "title": "Severity"
+            },
+            {
+                "field": "SEVERITY",
+                "aggregate": "count",
+                "type": "quantitative",
+                "title": "Number of accidents",
+                "format": ","
+            }
+        ]
+    },
+    "layer": [
+        {
+            "mark": "bar"
+        },
+        {
+            "mark": {
+                "type": "text",
+                "align": "lef",
+                "baseline": "middle",
+                "dx": 3,
+                "fontSize": 11.5,
+                "fontStyle": "italic"
+            },
+            "encoding": {
+                "text": {
+                    "field": "SEVERITY",
+                    "aggregate": "count",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "value": "black"
+                }
+            }
+        }
+    ]
+}
